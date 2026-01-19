@@ -14,3 +14,4 @@ def create_chat_agent_graph():
     graph_builder.add_edge("chat_node", END)
 
     return graph_builder.compile(checkpointer=checkpointer)
+

@@ -1,53 +1,251 @@
+# from src.agents.chat_agent.graph import create_chat_agent_graph
+# from langchain.messages import HumanMessage, AnyMessage
+# from src.agents.chat_agent.states.chat_agent_state import ChatAgentState
+
+# graph =create_chat_agent_graph()
+# def chat_handler(thread_id: str, message: str) -> ChatAgentState:
+#     """
+#     Recieves a message from user and sends it after modification.
+    
+#     Args: 
+#         message (str): The message sent by the user.
+        
+#     Returns:
+#         dict[str, str]: A dictionary containing the modified message.
+    
+#     """
+
+
+    
+#     return graph.invoke(
+#         input ={ 
+#             "message": [HumanMessage(content=message)]
+#         },
+#         config={
+#             "configurable":{
+#                 "thread_id": thread_id
+#             }
+#         }
+#     )
+# def get_all_threads_handler() -> list[str]:
+#     """
+#     """
+#     all_checkpoints = graph.checkpointer.list(config={})
+    
+#     threads = set()
+    
+#     for checkpoint in all_checkpoints:
+#         threads.add(checkpoint.config["configurable"]["thread_id"])
+    
+#     return list(threads)
+    
+# def chat_history_handler(thread_id: str) :
+#     """
+
+#     """
+#     return graph.checkpointer.get(
+#         config={
+#             "configurable": {
+#                 "thread_id": thread_id
+#             }
+#         }
+#     )["channel_values"]
+        
+        
+# from src.agents.chat_agent.graph import create_chat_agent_graph
+# from langchain.messages import HumanMessage
+# from src.agents.chat_agent.states.chat_agent_state import ChatAgentState
+# # from src.agents.chat_agent.graph import create_chat_agent_graph
+# from typing import Iterator
+
+# graph = create_chat_agent_graph()
+
+# def chat_handler(thread_id: str, message: str) -> ChatAgentState:
+#     '''Recieves a message from user and sends it after modification
+
+#     Args:
+#     messages (str): the user message
+#     return:
+#     dict[str, str]: modified message
+#     '''
+#     return graph.invoke(
+#         input = {"messages": [HumanMessage(content = message)]
+#         },
+#         config = {
+#             "configurable": {
+#                 "thread_id": thread_id
+#             }
+#         }
+#     )
+
+# def chat_stream_handler(thread_id: str, message: str) -> Iterator[dict[str, Any] |Any]:
+#     """
+#     """
+#     for chunk, metadata in graph.stream(
+#         input = {
+#             "messages": [HumanMessage(content = message)]
+#         },
+#         config = {
+#             "configurable": {
+#                 "thread_id": thread_id
+#             }
+#         },
+#         stream_mode="messages"
+#     ):
+#         yield chunk.content
+
+
+# def get_all_threads_handler() -> list[str]:
+#     """
+#     """
+#     all_checkpoints = graph.checkpointer.list(config = {})
+
+#     threads = set()
+
+#     for checkpoint in all_checkpoints: 
+#         threads.add(checkpoint.config["configurable"]["thread_id"])
+#     return list(threads)
+
+
+# def chat_history_handler(thread_id: str):
+#     """
+#     """
+#     return graph.checkpointer.get(
+#         config = {
+#             "configurable": {
+#                 "thread_id": thread_id
+#             }
+#         }
+#     )["channel_values"]
+
+# from src.agents.chat_agent.graph import create_chat_agent_graph
+# from langchain.messages import HumanMessage, AnyMessage
+# from src.agents.chat_agent.states.chat_agent_state import ChatAgentState
+# from src.agents.chat_agent.graph import create_chat_agent_graph
+# from typing import Iterator
+
+# graph = create_chat_agent_graph()
+
+# def chat_handler(thread_id: str, message: str) -> ChatAgentState:
+#     '''Recieves a message from user and sends it after modification
+
+#     Args:
+#     messages (str): the user message
+#     return:
+#     dict[str, str]: modified message
+#     '''
+#     return graph.invoke(
+#         input = {"messages": [HumanMessage(content = message)]
+#         },
+#         config = {
+#             "configurable": {
+#                 "thread_id": thread_id
+#             }
+#         }
+#     )
+
+# def chat_stream_handler(thread_id: str, message: str) -> Iterator[str]:
+#     """
+#     """
+#     for chunk, metadata in graph.stream(
+#         input = {
+#             "messages": [HumanMessage(content = message)]
+#         },
+#         config = {
+#             "configurable": {
+#                 "thread_id": thread_id
+#             }
+#         },
+#         stream_mode="messages"
+#     ):
+#         yield chunk.content
+
+
+# def get_all_threads_handler() -> list[str]:
+#     """
+#     """
+#     all_checkpoints = graph.checkpointer.list(config = {})
+
+#     threads = set()
+
+#     for checkpoint in all_checkpoints: 
+#         threads.add(checkpoint.config["configurable"]["thread_id"])
+#     return list(threads)
+
+
+# def chat_history_handler(thread_id: str):
+#     """
+#     """
+#     return graph.checkpointer.get(
+#         config = {
+#             "configurable": {
+#                 "thread_id": thread_id
+#             }
+#         }
+#     )["channel_values"] 
+
 from src.agents.chat_agent.graph import create_chat_agent_graph
 from langchain.messages import HumanMessage, AnyMessage
 from src.agents.chat_agent.states.chat_agent_state import ChatAgentState
+from src.agents.chat_agent.graph import create_chat_agent_graph
+from typing import Iterator, Any
 
-graph =create_chat_agent_graph()
+graph = create_chat_agent_graph()
+
 def chat_handler(thread_id: str, message: str) -> ChatAgentState:
-    """
-    Recieves a message from user and sends it after modification.
-    
-    Args: 
-        message (str): The message sent by the user.
-        
-    Returns:
-        dict[str, str]: A dictionary containing the modified message.
-    
-    """
+    '''Recieves a message from user and sends it after modification
 
-
-    
+    Args:
+    messages (str): the user message
+    return:
+    dict[str, str]: modified message
+    '''
     return graph.invoke(
-        input ={ 
-            "message": [HumanMessage(content=message)]
+        input = {"messages": [HumanMessage(content = message)]
         },
-        config={
-            "configurable":{
+        config = {
+            "configurable": {
                 "thread_id": thread_id
             }
         }
     )
+
+def chat_stream_handler(thread_id: str, message: str) -> Iterator[dict[str, Any] |Any]:
+    """
+    """
+    for chunk, metadata in graph.stream(
+        input = {
+            "messages": [HumanMessage(content = message)]
+        },
+        config = {
+            "configurable": {
+                "thread_id": thread_id
+            }
+        },
+        stream_mode="messages"
+    ):
+        yield chunk.content
+
+
 def get_all_threads_handler() -> list[str]:
     """
     """
-    all_checkpoints = graph.checkpointer.list(config={})
-    
-    threads = set()
-    
-    for checkpoint in all_checkpoints:
-        threads.add(checkpoint.config["configurable"]["thread_id"])
-    
-    return list(threads)
-    
-def chat_history_handler(thread_id: str) :
-    """
+    all_checkpoints = graph.checkpointer.list(config = {})
 
+    threads = set()
+
+    for checkpoint in all_checkpoints: 
+        threads.add(checkpoint.config["configurable"]["thread_id"])
+    return list(threads)
+
+
+def chat_history_handler(thread_id: str):
+    """
     """
     return graph.checkpointer.get(
-        config={
+        config = {
             "configurable": {
                 "thread_id": thread_id
             }
         }
     )["channel_values"]
-        
