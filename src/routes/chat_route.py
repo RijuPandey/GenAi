@@ -119,30 +119,25 @@
 #     return chat_history_handler(thread_id = thread_id)
 
 from fastapi import APIRouter
+from src.handlers.chat_handlers import chat_handler, chat_history_handler, get_all_threads_handler,chat_stream_handler
 from fastapi.responses import StreamingResponse
-from src.handlers.chat_handlers import (chat_handler,
-                                        chat_stream_handler, 
-                                        chat_history_handler, 
-                                        get_all_threads_handler)
-from langchain.messages import AnyMessage
-from src.agents.chat_agent.states.chat_agent_state import ChatAgentState
 
 router = APIRouter()
 
 @router.post("/chat/{thread_id}")
-def chat_with_ai(thread_id: str, message: str) -> ChatAgentState:
+def chat_with_ai(thread_id: str, message: str):
     """
     """
     return chat_handler(thread_id = thread_id, message=message)
 
 
 
+
+    
 @router.post("/stream/{thread_id}")
 def stream_chat_with_ai(thread_id: str, message: str):
-    """
-    """
     return StreamingResponse(
-        chat_stream_handler(thread_id = thread_id, message=message),
+        chat_stream_handler(thread_id=thread_id ,message=message),
         media_type="text/plain"
     )
 
